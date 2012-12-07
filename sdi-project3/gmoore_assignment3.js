@@ -28,6 +28,23 @@ var vehicle = {
 	isFitForDuty: false,
 };
 
+var json = { "weapons": 
+				{ "Tank": {
+					"NumberOfWeapons": 2,
+					"canSpare": false
+					},
+				  "Shotgun": {
+						"NumberOfWeapons": 34,
+						"canSpare": true
+					},
+					"Magnum": {
+						"NumberOfWeapons": 1,
+						"canSpare": false
+					}
+					
+				}
+}
+
 
 //Procedure
 var invasionHasBegun = function(infected, clean) {
