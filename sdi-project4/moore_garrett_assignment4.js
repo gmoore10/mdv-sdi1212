@@ -38,13 +38,49 @@ stringVerifyEmail("407-679-6333");
 stringVerifyEmail("gmoore10@fullsail.edu");
 stringVerifyEmail("hello!");
 
-var stringURL = function () {
+var stringVerifyURL = function (urlString) {
+    var doubleSlash = urlString.indexOf("/")+2;
+    var httpPrefix = urlString.substring(0, doubleSlash);
 
+    if (httpPrefix === "http://" || httpPrefix === "https://") {
+        console.log(urlString + " is a valid URL");
+        return true;
+    } else {
+        console.log(urlString + " is not a valid URL");
+        return false;
+    }
 };
 
-var stringCapitalizeAllWords = function () {
+stringVerifyURL("407-679-6333");
+stringVerifyURL("http://www.fullsail.edu");
+stringVerifyURL("https://www.google.com");
+stringVerifyURL("hello!");
 
+var stringCapitalizeAllWords = function (sentenceToUpper) {
+    var wordArray = sentenceToUpper.split(" ");
+    var sentenceRebuild;
+    
+    for (var i = 0; i < wordArray.length; i++) {
+        var word = wordArray[i].charAt(0).toUpperCase() + wordArray[i].slice(1);
+        wordArray[i] = word;
+    }
+    for (var i = 0; i < wordArray.length; i++) {
+        if (i === 0) {
+            sentenceRebuild = wordArray[i] + " ";
+        } else if (i === wordArray.length) {
+            sentenceRebuild = sentenceRebuild + wordArray[i];
+        }
+        else {
+            sentenceRebuild = sentenceRebuild + wordArray[i] + " ";
+        }
+    }
+    console.log(sentenceRebuild);
+    return sentenceRebuild;
 };
+
+stringCapitalizeAllWords("welcome to the seventh circle of hell!");
+stringCapitalizeAllWords("We need to go that-a-way.");
+stringCapitalizeAllWords("full sail university har har har");
 
 var stringChangeSeparator = function () {
 
