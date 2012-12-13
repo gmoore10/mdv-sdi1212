@@ -102,6 +102,12 @@ var jsLib = function () {
         return stringRebuild;
     };
 
+    var numDecimalPlaces = function (number, decimalCount) {
+        var num = number.toFixed(decimalCount);
+
+        return num;
+    }
+
     //Public
     return {
         "isPhoneNumber": stringPhoneNumber,
@@ -109,6 +115,7 @@ var jsLib = function () {
         "isURL": stringVerifyURL,
         "wordsToUpper": stringCapitalizeAllWords,
         "changeSeparator": stringChangeSeparator,
+        "decimalPlaces": numDecimalPlaces,
     };
 };
 
@@ -119,12 +126,14 @@ var validEmail = lib.isEmail("gmoore10@fullsail.edu");
 var validURL = lib.isURL("http://www.cnn.com");
 var sentenceUpper = lib.wordsToUpper("This is a sentence.");
 var separateByDash = lib.changeSeparator("a.b.c.d.e.f.g.h", ".", "-");
+var decimalPlaces = lib.decimalPlaces(5.244693, 3);
 
 console.log("Valid Phone: " + validPhone);
 console.log("Valid Email: " + validEmail);
 console.log("Valid URL: " + validURL);
 console.log("Uppercase All Words: " + sentenceUpper);
 console.log("Dots to Dashes: " + separateByDash);
+console.log("Decimal Places: " + decimalPlaces);
 
 var numberDecimalPlaces = function () {
 
