@@ -1,90 +1,130 @@
-var stringPhoneNumber = function (phoneNumber) {
-    var firstDash = phoneNumber.indexOf("-");
-    var secondDash = phoneNumber.lastIndexOf("-");
+//Garrett Moore
+//Javascript Library
+//SDI Project 4
 
-    if (phoneNumber.search(/\d{3}\-\d{3}\-\d{4}/) == -1) {
-        console.log(phoneNumber + " is not valid phone number.");
-    } else {
-        var prefix = phoneNumber.substring(0, firstDash)
-        var middle = phoneNumber.substring(firstDash + 1, secondDash);
-        var end = phoneNumber.substring(secondDash + 1, phoneNumber.length);
+var jsLib = function () {
 
-        if (isNaN(prefix) === false && isNaN(middle) === false && isNaN(end) === false) {
-            console.log(phoneNumber + " is a valid phone number.");
+    //Check if format is phone number
+    var stringPhoneNumber = function (phoneNumber) {
+        //Indexes of dashes are needed.
+        var firstDash = phoneNumber.indexOf("-");
+        var secondDash = phoneNumber.lastIndexOf("-");
+
+        //Using Regex, check if string is in three-three-four format
+        if (phoneNumber.search(/\d{3}\-\d{3}\-\d{4}/) == -1) {
+            return false;
+        } else {
+            //First IF only checks for format, not numbers
+            //We need to separate each block of characters and make sure
+            //they only have number in them.
+            var prefix = phoneNumber.substring(0, firstDash)
+            var middle = phoneNumber.substring(firstDash + 1, secondDash);
+            var end = phoneNumber.substring(secondDash + 1, phoneNumber.length);
+
+            if (isNaN(prefix) === false && isNaN(middle) === false && isNaN(end) === false) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    };
+
+    //Check if format is Email
+    var stringVerifyEmail = function (emailAddress) {
+        
+        //Using Regex, verify if string follows aaa@bbb.ccc
+        if (emailAddress.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) == -1) {
+            return false;
+        } else {
             return true;
         }
-        else {
-            console.log(phoneNumber + " is not a valid phone number.");
+    };
+
+    //Check if format is Email
+    var stringVerifyURL = function (urlString) {
+
+        //Need position of character after first slash
+        var doubleSlash = urlString.indexOf("/") + 2;
+        var httpPrefix = urlString.substring(0, doubleSlash);
+
+        if (httpPrefix === "http://" || httpPrefix === "https://") {
+            return true;
+        } else {
             return false;
         }
-    }
-};
+    };
 
-stringPhoneNumber("407-679-6333");
-stringPhoneNumber("abc-dec-6333");
-stringPhoneNumber("hello!");
+    //Take in string and capitalize first letter of every word.
+    var stringCapitalizeAllWords = function (sentenceToUpper) {
+        var wordArray = sentenceToUpper.split(" ");
+        var sentenceRebuild;
 
-var stringVerifyEmail = function (emailAddress) {
-    if (emailAddress.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) == -1) {
-        console.log(emailAddress + " is not valid email address.");
-        return false;
-    } else {
-        console.log(emailAddress + " is a valid email address.");
-        return true;
-    }
-}
-
-stringVerifyEmail("407-679-6333");
-stringVerifyEmail("gmoore10@fullsail.edu");
-stringVerifyEmail("hello!");
-
-var stringVerifyURL = function (urlString) {
-    var doubleSlash = urlString.indexOf("/")+2;
-    var httpPrefix = urlString.substring(0, doubleSlash);
-
-    if (httpPrefix === "http://" || httpPrefix === "https://") {
-        console.log(urlString + " is a valid URL");
-        return true;
-    } else {
-        console.log(urlString + " is not a valid URL");
-        return false;
-    }
-};
-
-stringVerifyURL("407-679-6333");
-stringVerifyURL("http://www.fullsail.edu");
-stringVerifyURL("https://www.google.com");
-stringVerifyURL("hello!");
-
-var stringCapitalizeAllWords = function (sentenceToUpper) {
-    var wordArray = sentenceToUpper.split(" ");
-    var sentenceRebuild;
-    
-    for (var i = 0; i < wordArray.length; i++) {
-        var word = wordArray[i].charAt(0).toUpperCase() + wordArray[i].slice(1);
-        wordArray[i] = word;
-    }
-    for (var i = 0; i < wordArray.length; i++) {
-        if (i === 0) {
-            sentenceRebuild = wordArray[i] + " ";
-        } else if (i === wordArray.length) {
-            sentenceRebuild = sentenceRebuild + wordArray[i];
+        //Grab each entry in wordArray and capitalize char 0.
+        for (var i = 0; i < wordArray.length; i++) {
+            var word = wordArray[i].charAt(0).toUpperCase() + wordArray[i].slice(1);
+            wordArray[i] = word;
         }
-        else {
-            sentenceRebuild = sentenceRebuild + wordArray[i] + " ";
+
+        //Rebuild string by adding each word back into the string.
+        for (var i = 0; i < wordArray.length; i++) {
+            if (i === 0) {
+                sentenceRebuild = wordArray[i] + " ";
+            } else if (i === wordArray.length) {
+                sentenceRebuild = sentenceRebuild + wordArray[i];
+            }
+            else {
+                sentenceRebuild = sentenceRebuild + wordArray[i] + " ";
+            }
         }
-    }
-    console.log(sentenceRebuild);
-    return sentenceRebuild;
+        return sentenceRebuild;
+    };
+
+    //Take in string of values separated by a separator and replace with given replacementSeparator
+    var stringChangeSeparator = function (separatedString, separator, replacementSeparator) {
+
+        //Break out each separated string
+        var stringArray = separatedString.split(separator);
+        var stringRebuild;
+
+        //Rebuild string, adding in replacementSeparator after each array entry.
+        for (var i = 0; i < stringArray.length; i++) {
+            if (i === 0) {
+                stringRebuild = stringArray[i] + replacementSeparator;
+            } else if (i === stringArray.length - 1) {
+                stringRebuild = stringRebuild + stringArray[i];
+            }
+            else {
+                stringRebuild = stringRebuild + stringArray[i] + replacementSeparator;
+            }
+        }
+
+        return stringRebuild;
+    };
+
+    //Public
+    return {
+        "isPhoneNumber": stringPhoneNumber,
+        "isEmail": stringVerifyEmail,
+        "isURL": stringVerifyURL,
+        "wordsToUpper": stringCapitalizeAllWords,
+        "changeSeparator": stringChangeSeparator,
+    };
 };
 
-stringCapitalizeAllWords("welcome to the seventh circle of hell!");
-stringCapitalizeAllWords("We need to go that-a-way.");
-stringCapitalizeAllWords("full sail university har har har");
+var lib = new jsLib();
 
-var stringChangeSeparator = function () {
+var validPhone = lib.isPhoneNumber("407-555-1234");
+var validEmail = lib.isEmail("gmoore10@fullsail.edu");
+var validURL = lib.isURL("http://www.cnn.com");
+var sentenceUpper = lib.wordsToUpper("This is a sentence.");
+var separateByDash = lib.changeSeparator("a.b.c.d.e.f.g.h", ".", "-");
 
-};
+console.log("Valid Phone: " + validPhone);
+console.log("Valid Email: " + validEmail);
+console.log("Valid URL: " + validURL);
+console.log("Uppercase All Words: " + sentenceUpper);
+console.log("Dots to Dashes: " + separateByDash);
 
 var numberDecimalPlaces = function () {
 
